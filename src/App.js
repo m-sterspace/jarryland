@@ -147,7 +147,7 @@ const App = props => {
                   />
                   <h4 >Current Location</h4>
                   <h2 ref={ipRef}>{currentIp}</h2>
-                  <Copy size={30} text={currentIp} onCopy={() => setCopySuccess('Copied!')}/>
+                  <Copy size={30} text={currentIp} onCopy={() => {setCopySuccess('Copied!'); setTimeout(setCopySuccess,1000,"" )}}/>
                   <h4 style={{ color: 'green' }}>
                     {copySuccess}
                   </h4>
