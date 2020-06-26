@@ -100,7 +100,6 @@ const App = props => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [currentIp, setCurrentIp] = useState("");
   const [copySuccess, setCopySuccess] = useState('');
-  const ipRef = useRef(null);
 
   const getIp = async () => {
     try {
@@ -117,6 +116,9 @@ const App = props => {
   useEffect(() => {
     getIp();
   }, [])
+
+  const javIp = currentIp ? currentIp  + ":25565": "Please refresh.";
+  const bedIp = currentIp ? currentIp  + ":19132": "Please refresh.";
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -136,7 +138,7 @@ const App = props => {
             </AppBar>
             <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
               <Box flex align='stretch' justify='stretch'>
-                <img src={mine} style={{ objectFit:'cover', margin: "30px auto", width:"90%", maxHeight:"40vh", height:"auto", }} />
+                <img src={mine} style={{ objectFit: 'cover', margin: "30px auto", width: "90%", maxHeight: "40vh", height: "auto", }} />
                 <div style={{ textAlign: 'center', marginBottom: '100px' }}>
                   <Refresh
                     size={25}
@@ -145,9 +147,16 @@ const App = props => {
                       return await getIp();
                     }}
                   />
-                  <h4 >Current Location</h4>
-                  <h2 ref={ipRef}>{currentIp}</h2>
-                  <Copy size={30} text={currentIp} onCopy={() => {setCopySuccess('Copied!'); setTimeout(setCopySuccess,1000,"" );}}/>
+                  <h4 >Java Edition:</h4>
+                  <h2 >{javIp}</h2>
+                  <Copy size={30} text={javIp} onCopy={() => { setCopySuccess('Copied!'); setTimeout(setCopySuccess, 1000, ""); }} />
+                  <h4 style={{ color: 'green' }}>
+                    {copySuccess}
+                  </h4>
+
+                  <h4 >Bedrock Edition:</h4>
+                  <h2 >{bedIp}</h2>
+                  <Copy size={30} text={bedIp} onCopy={() => { setCopySuccess('Copied!'); setTimeout(setCopySuccess, 1000, ""); }} />
                   <h4 style={{ color: 'green' }}>
                     {copySuccess}
                   </h4>
